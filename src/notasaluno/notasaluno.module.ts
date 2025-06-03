@@ -1,12 +1,15 @@
 import { Module } from '@nestjs/common';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { NotaAluno } from './notasaluno.entity';
+import { MongooseModule } from '@nestjs/mongoose';
+import { NotaAluno, NotaAlunoSchema } from './notasaluno.schema';
 import { NotaAlunoService } from './notasaluno.service';
 import { NotaAlunoController } from './notasaluno.controller';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([NotaAluno])],
+  imports: [
+    MongooseModule.forFeature([{ name: NotaAluno.name, schema: NotaAlunoSchema}])
+  ],
   providers: [NotaAlunoService],
   controllers: [NotaAlunoController],
 })
-export class NotasalunoModule {}
+
+export class NotaAlunoModule {}

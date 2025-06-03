@@ -1,7 +1,6 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, Post, Body, Delete, Put, Param } from '@nestjs/common';
 import { NotaAlunoService } from './notasaluno.service';
-import { Body, Post } from '@nestjs/common';
-import { NotaAluno } from './notasaluno.entity';
+import { NotaAluno } from './notasaluno.schema';
 
 @Controller('notasaluno')
 export class NotaAlunoController {
@@ -15,5 +14,15 @@ export class NotaAlunoController {
   @Post()
   create(@Body() notaAluno: NotaAluno) {
     return this.notaAlunoService.create(notaAluno);
+  }
+
+  @Delete(':id')
+  remove(@Param('id') id: string) {
+    return this.notaAlunoService.remove(id); 
+  }
+
+  @Put(':id')
+  update(@Param('id') id: string, @Body() notaAluno: NotaAluno) {
+    return this.notaAlunoService.update(id, notaAluno); 
   }
 }
