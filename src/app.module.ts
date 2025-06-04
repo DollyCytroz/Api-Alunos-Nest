@@ -1,7 +1,7 @@
 import { Module, NestModule, MiddlewareConsumer } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 import { NotaAlunoModule } from './notasaluno/notasaluno.module';
-import { RateLimitMiddleware } from './rate-limit.middleware'; // ajuste o caminho se estiver em outra pasta
+import { RateLimitMiddleware } from './rate-limit.middleware'; 
 
 @Module({
   imports: [
@@ -13,6 +13,6 @@ export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
     consumer
       .apply(RateLimitMiddleware)
-      .forRoutes('*'); // aplica a todas as rotas
+      .forRoutes('*'); 
   }
 }

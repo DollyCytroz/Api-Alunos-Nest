@@ -14,9 +14,9 @@ export class NotaAlunoService {
     return this.notaAlunoModel.find().exec();
   }
 
-  async create(notaAluno: NotaAluno): Promise<NotaAluno> { 
-    const novoAlunoNota = new this.notaAlunoModel(NotaAluno);
-    return novoAlunoNota.save(); 
+  async create(data: Partial<NotaAluno>): Promise<NotaAluno> { 
+    const createdNotaAluno = new this.notaAlunoModel(data);
+    return createdNotaAluno.save(); 
   }
 
   async remove(id: string): Promise<void> {
@@ -26,12 +26,16 @@ export class NotaAlunoService {
     }
   }
 
-  async update(id: string, notaAluno: NotaAluno): Promise<NotaAluno> {
-    const alunoNotaAtualizado = await this.notaAlunoModel.findByIdAndUpdate(id, NotaAluno, { new: true}).exec();
+  async update(id: string, notaAluno: Partial<NotaAluno>): Promise<NotaAluno> {
+    const alunoNotaAtualizado = await this.notaAlunoModel.findByIdAndUpdate(
+      id,
+      { ...notaAluno },
+      { new: true }
+    ).exec();
 
     if (!alunoNotaAtualizado) {
-      throw new NotFoundException(`Livro com ID ${id} não encontrado`);
+      throw new NotFoundException(`Aluno com ID ${id} não encontrado`);
     }
-    return alunoNotaAtualizado; 
+    return alunoNotaAtualizado;
   }
 }
